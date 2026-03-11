@@ -1,7 +1,9 @@
 package com.jairo.incidencias.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Incidencia {
 
@@ -13,19 +15,4 @@ public class Incidencia {
     private String descripcion;
     private String estado;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
 }
