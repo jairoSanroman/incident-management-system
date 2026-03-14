@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.jairo.incidencias.service.IncidenciaService;
 import java.util.List;
 import java.util.Optional;
+import com.jairo.incidencias.entity.EstadoIncidencia;
 
 @RestController
 @RequestMapping("/incidencias")
@@ -49,10 +50,12 @@ public class IncidenciaController {
 
     // Buscar incidencias por estado
     @GetMapping("/estado/{estado}")
-    public List<Incidencia> obtenerPorEstado(@PathVariable String estado) {
+    public List<Incidencia> obtenerPorEstado(@PathVariable EstadoIncidencia estado) {
+
         return incidenciaService.obtenerTodas()
                 .stream()
-                .filter(i -> estado.equalsIgnoreCase(i.getEstado()))
+                .filter(i -> i.getEstado() == estado)
                 .toList();
     }
+
 }
