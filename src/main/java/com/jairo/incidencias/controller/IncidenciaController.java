@@ -1,11 +1,14 @@
 package com.jairo.incidencias.controller;
 
+import com.jairo.incidencias.dto.IncidenciaDTO;
 import com.jairo.incidencias.entity.Incidencia;
+import com.jairo.incidencias.mapper.IncidenciaMapper;
 import org.springframework.web.bind.annotation.*;
 import com.jairo.incidencias.service.IncidenciaService;
 import java.util.List;
 import java.util.Optional;
 import com.jairo.incidencias.entity.EstadoIncidencia;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/incidencias")
@@ -32,7 +35,9 @@ public class IncidenciaController {
 
     // Crear nueva incidencia
     @PostMapping
-    public Incidencia crearIncidencia(@RequestBody Incidencia incidencia) {
+    public Incidencia crear(@Valid @RequestBody IncidenciaDTO dto) {
+        Incidencia incidencia = IncidenciaMapper.toEntity(dto);
+
         return incidenciaService.guardar(incidencia);
     }
 
