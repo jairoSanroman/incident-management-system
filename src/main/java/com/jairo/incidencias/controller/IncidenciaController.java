@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import com.jairo.incidencias.entity.EstadoIncidencia;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/incidencias")
@@ -55,12 +57,12 @@ public class IncidenciaController {
 
     // Buscar incidencias por estado
     @GetMapping("/estado/{estado}")
-    public List<Incidencia> obtenerPorEstado(@PathVariable EstadoIncidencia estado) {
+    public Page<IncidenciaDTO> obtenerPorEstado(
+            @PathVariable EstadoIncidencia estado,
+            Pageable pageable) {
 
-        return incidenciaService.obtenerTodas()
-                .stream()
-                .filter(i -> i.getEstado() == estado)
-                .toList();
+        return incidenciaService.obtenerPorEstado(estado, pageable);
     }
+
 
 }

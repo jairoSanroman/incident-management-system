@@ -6,15 +6,13 @@ import com.jairo.incidencias.entity.EstadoIncidencia;
 
 public class IncidenciaMapper {
 
-    public static Incidencia toEntity(IncidenciaDTO dto) {
-
-        Incidencia incidencia = new Incidencia();
-
-        incidencia.setTitulo(dto.getTitulo());
-        incidencia.setDescripcion(dto.getDescripcion());
-        incidencia.setEstado(EstadoIncidencia.valueOf(dto.getEstado()));
-
-        return incidencia;
+    public static IncidenciaDTO toDTO(Incidencia incidencia) {
+        IncidenciaDTO dto = new IncidenciaDTO();
+        dto.setId(incidencia.getId());
+        dto.setTitulo(incidencia.getTitulo());
+        dto.setDescripcion(incidencia.getDescripcion());
+        dto.setEstado(incidencia.getEstado());
+        return dto;
     }
 
 }

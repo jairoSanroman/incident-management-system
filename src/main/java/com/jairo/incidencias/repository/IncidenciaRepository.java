@@ -1,9 +1,11 @@
 package com.jairo.incidencias.repository;
 
+import com.jairo.incidencias.entity.EstadoIncidencia;
 import com.jairo.incidencias.entity.Incidencia;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 public interface IncidenciaRepository extends JpaRepository<Incidencia, Long> {
-    // Buscar incidencias por estado
-    List<Incidencia> findByEstado(String estado);
+    Page<Incidencia> findByEstado(EstadoIncidencia estado, Pageable pageable);
 }
+
