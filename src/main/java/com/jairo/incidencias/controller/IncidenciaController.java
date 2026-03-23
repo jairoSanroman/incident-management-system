@@ -63,6 +63,14 @@ public class IncidenciaController {
 
         return incidenciaService.obtenerPorEstado(estado, pageable);
     }
+    // Buscar con filtros dinámicos
+    @GetMapping("/buscar")
+    public Page<Incidencia> buscar(
+            @RequestParam(required = false) EstadoIncidencia estado,
+            @RequestParam(required = false) String titulo,
+            Pageable pageable) {
 
+        return incidenciaService.buscar(estado, titulo, pageable);
+    }
 
 }

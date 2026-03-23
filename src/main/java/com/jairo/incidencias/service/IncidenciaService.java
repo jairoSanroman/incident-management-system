@@ -51,4 +51,27 @@ public class IncidenciaService {
                 .findByEstado(estado, pageable)
                 .map(IncidenciaMapper::toDTO);
     }
+    // 🔥 MÉTODO DE BÚSQUEDA DINÁMICA
+    public Page<Incidencia> buscar(EstadoIncidencia estado, String titulo, Pageable pageable) {
+
+        // Ambos filtros
+        if (estado != null && titulo != null) {
+            return incidenciaRepository
+                    .findByEstadoAndTituloContainingIgnoreCase(estado, titulo, pageable);
+        }
+
+        // Solo estado
+        if (estado != null) {
+            return incidenciaRepository.findByEstado(estado, pageable);
+        }
+
+        // Solo título
+        if (titulo != null) {
+            return incidenciaRepository
+                    .findByTituloContainingIgnoreCase(titulo, pageable);
+        }
+
+        // Sin filtros
+        return incidenciaRepository.findAll(pageable);
+    }
 }
