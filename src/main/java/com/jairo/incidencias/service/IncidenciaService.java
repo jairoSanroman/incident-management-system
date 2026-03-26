@@ -5,12 +5,13 @@ import com.jairo.incidencias.entity.EstadoIncidencia;
 import com.jairo.incidencias.entity.Incidencia;
 import com.jairo.incidencias.mapper.IncidenciaMapper;
 import com.jairo.incidencias.repository.IncidenciaRepository;
+import com.jairo.incidencias.specification.IncidenciaSpecification;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.data.jpa.domain.Specification;
 @Service
 public class IncidenciaService {
     // Repositorio para acceder a la base de datos
@@ -54,24 +55,11 @@ public class IncidenciaService {
     // 🔥 MÉTODO DE BÚSQUEDA DINÁMICA
     public Page<Incidencia> buscar(EstadoIncidencia estado, String titulo, Pageable pageable) {
 
-        // Ambos filtros
-        if (estado != null && titulo != null) {
-            return incidenciaRepository
-                    .findByEstadoAndTituloContainingIgnoreCase(estado, titulo, pageable);
-        }
+        Specification<Incidencia> spec = Specification.allOf(
+                IncidenciaSpecification.tieneEstado(estado),
+                IncidenciaSpecification.tituloContiene(titulo)
+        );
 
-        // Solo estado
-        if (estado != null) {
-            return incidenciaRepository.findByEstado(estado, pageable);
-        }
-
-        // Solo título
-        if (titulo != null) {
-            return incidenciaRepository
-                    .findByTituloContainingIgnoreCase(titulo, pageable);
-        }
-
-        // Sin filtros
-        return incidenciaRepository.findAll(pageable);
+        return incidenciaRepository.findAll(spec, pageable);
     }
 }

@@ -5,8 +5,11 @@ import com.jairo.incidencias.entity.EstadoIncidencia;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface IncidenciaRepository extends JpaRepository<Incidencia, Long> {
+public interface IncidenciaRepository
+        extends JpaRepository<Incidencia, Long>,
+        JpaSpecificationExecutor<Incidencia> {
 
     // Filtrar por estado
     Page<Incidencia> findByEstado(EstadoIncidencia estado, Pageable pageable);
