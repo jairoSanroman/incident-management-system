@@ -31,7 +31,7 @@ public class IncidenciaController {
 
     // Obtener incidencia por ID
     @GetMapping("/{id}")
-    public Optional<Incidencia> obtenerPorId(@PathVariable Long id) {
+    public Incidencia obtenerPorId(@PathVariable Long id) {
         return incidenciaService.obtenerPorId(id);
     }
 
@@ -65,7 +65,7 @@ public class IncidenciaController {
     }
     // Buscar con filtros dinámicos
     @GetMapping("/buscar")
-    public Page<Incidencia> buscar(
+    public Page<IncidenciaDTO> buscar(
             @RequestParam(required = false) EstadoIncidencia estado,
             @RequestParam(required = false) String titulo,
             Pageable pageable) {
